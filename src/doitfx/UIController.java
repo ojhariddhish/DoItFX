@@ -21,6 +21,9 @@ import javafx.scene.control.*;
 public class UIController implements Initializable {
     
     @FXML
+    private ProgressBar pbTask;
+    
+    @FXML
     private TableView<?> tableTasks;
 
 //    @FXML
@@ -74,6 +77,7 @@ public class UIController implements Initializable {
                 else {
                     cbCompleted.setSelected(false);
                 }
+                pbTask.setProgress((1.0 * newValue) / 100);
             }
         });
     }    

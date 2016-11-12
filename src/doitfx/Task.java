@@ -5,6 +5,8 @@
  */
 package doitfx;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
@@ -39,6 +41,13 @@ public class Task {
         // Lambda expression
         intProp.addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             System.out.println("IntProp change from "+oldValue+" to "+newValue);
+        });
+        
+        intProp.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                System.out.println("Int property changed.");
+            }
         });
         
         intProp.set(90);

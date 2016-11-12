@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,6 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doitfx.UIController">
    <children>
+      <ProgressBar fx:id="pbTask" layoutX="175.0" layoutY="276.0" prefHeight="25.0" prefWidth="318.0" progress="0.0" />
       <TableView fx:id="tableTasks" layoutX="14.0" layoutY="14.0" prefHeight="252.0" prefWidth="574.0">
         <columns>
           <TableColumn fx:id="colPriority" prefWidth="75.0" text="Priority" />
@@ -20,7 +22,7 @@
         </columns>
       </TableView>
       <ComboBox fx:id="comboBoxPriority" layoutX="14.0" layoutY="276.0" prefWidth="150.0" />
-      <TextField fx:id="tfDescription" layoutX="175.0" layoutY="276.0" prefHeight="25.0" prefWidth="318.0" />
+      <TextField fx:id="tfDescription" layoutX="175.0" layoutY="276.0" opacity="0.75" prefHeight="25.0" prefWidth="318.0" />
       <Button fx:id="btnAdd" layoutX="504.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Add" />
       <Label fx:id="textProgress" layoutX="75.0" layoutY="308.0" prefHeight="25.0" prefWidth="89.0" text="Progress" />
       <Spinner fx:id="spProgress" editable="true" layoutX="175.0" layoutY="308.0" prefHeight="25.0" prefWidth="209.0" />
