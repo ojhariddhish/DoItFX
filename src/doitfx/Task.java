@@ -5,10 +5,10 @@
  */
 package doitfx;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 
 /**
  *
@@ -17,41 +17,50 @@ import javafx.beans.value.ObservableValue;
 public class Task {
     
     public static void main(String[] args) {
-        SimpleIntegerProperty intProp = new SimpleIntegerProperty();
-        intProp.set(10);
-        System.out.println("IntProp: "+intProp.get());
+        
+        StringProperty lastNameProp = new SimpleStringProperty();
+        StringProperty surNameProp = new SimpleStringProperty();
+        
+        //surNameProp.bind(lastNameProp);
+        surNameProp.bindBidirectional(lastNameProp);
+        
+        surNameProp.set("Tony");
+        System.out.println("Surname: "+surNameProp.get()+" Lastname: "+lastNameProp.get());
+        
+        lastNameProp.set("Stark");
+        System.out.println("Surname: "+surNameProp.get()+" Lastname: "+lastNameProp.get());
+        
+        StringProperty firstNameProp = new SimpleStringProperty();
+        firstNameProp.set("Tony");
+        StringProperty fullNameProp = new SimpleStringProperty();
+        fullNameProp.bind(Bindings.concat(firstNameProp+" "+lastNameProp));
+        System.out.println("Full Name: "+fullNameProp.get());
         
         
-        SimpleStringProperty stringProp = new SimpleStringProperty("InitialValue");
-        System.out.println("StringProp: "+stringProp.get());
-        stringProp.set("New Value");
-        System.out.println("NewString: "+stringProp.get());
+        IntegerProperty length = new SimpleIntegerProperty(18);
+        IntegerProperty width = new SimpleIntegerProperty(13);
+        IntegerProperty area = new SimpleIntegerProperty();
         
-        ReadOnlyBooleanWrapper readOnlyBool = new ReadOnlyBooleanWrapper(true);
-        ReadOnlyBooleanProperty boolProp = readOnlyBool.getReadOnlyProperty();
-        System.out.println("ReadOnlyBool: "+boolProp);
+        area.bind(length.multiply(width));
         
-//        intProp.addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                System.out.println("IntProp change from "+oldValue+" to "+newValue);
-//            }
-//        });
+        NumberBinding perimeterBinding = length.add(width).multiply(2);
+        System.out.println("Area: "+area.get());
+        System.out.println("Perimeter: "+perimeterBinding.getValue().intValue());
         
-        // Lambda expression
-        intProp.addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-            System.out.println("IntProp change from "+oldValue+" to "+newValue);
-        });
+        DoubleProperty radius = new SimpleDoubleProperty(1.5);
         
-        intProp.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                System.out.println("Int property changed.");
+        DoubleBinding volumeBinding = new DoubleBinding() {
+            {
+                super.bind(radius);
             }
-        });
-        
-        intProp.set(90);
-        intProp.set(100);
+            @Override
+            protected double computeValue() {
+                return 4 / 3 * Math.PI * Math.pow(radius.get(), 3);
+            }
+        };
+        System.out.println("Volume: "+volumeBinding.get());
+        radius.set(2.5);
+        System.out.println("Volume: "+volumeBinding.get());
     }
     
 }
