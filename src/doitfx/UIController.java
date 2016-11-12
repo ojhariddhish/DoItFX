@@ -7,6 +7,8 @@ package doitfx;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.*;
+import static javafx.beans.property.ReadOnlyIntegerProperty.readOnlyIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -56,6 +58,9 @@ public class UIController implements Initializable {
     @FXML
     private Button btnCancel;
 
+    private Task currentTask = new Task();
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -77,9 +82,20 @@ public class UIController implements Initializable {
                 else {
                     cbCompleted.setSelected(false);
                 }
-                pbTask.setProgress((1.0 * newValue) / 100);
+                currentTask.setDescription(tfDescription.getText().toString());
+                //pbTask.setProgress((1.0 * newValue) / 100);
+                System.out.println("Description: "+currentTask.getDescription());
+                System.out.println("Priority: "+currentTask.getPriority());
+                System.out.println("Progress: "+currentTask.getProgress());
             }
         });
+        
+        ReadOnlyIntegerProperty intProgress = readOnlyIntegerProperty(spProgress.valueProperty());
+        pbTask.progressProperty().bind(intProgress.divide(100.0));
+        
+        comboBoxPriority.valueProperty().bindBidirectional(currentTask.priorityProperty());
+        tfDescription.textProperty().bindBidirectional(currentTask.descriptionProperty());
+        spProgress.getValueFactory().valueProperty().bindBidirectional(currentTask.progressProperty());
     }    
     
 }
