@@ -105,11 +105,6 @@ public class UIController implements Initializable {
                 else {
                     cbCompleted.setSelected(false);
                 }
-//                currentTask.setDescription(tfDescription.getText().toString());
-//                //pbTask.setProgress((1.0 * newValue) / 100);
-//                System.out.println("Description: "+currentTask.getDescription());
-//                System.out.println("Priority: "+currentTask.getPriority());
-//                System.out.println("Progress: "+currentTask.getProgress());
             }
         });
         
@@ -124,10 +119,6 @@ public class UIController implements Initializable {
         colPriority.setCellValueFactory(rowData -> rowData.getValue().priorityProperty());
         colDescription.setCellValueFactory(rowData -> rowData.getValue().descriptionProperty());
         colProgress.setCellValueFactory(rowData -> Bindings.concat(rowData.getValue().progressProperty(),"%"));
-        
-//        tasks.addAll(new Task(1, "High", "Learn JavaFX", 50),
-//                        new Task(2, "Medium", "Make an app", 0),
-//                        new Task(3, "Low", "Research on JavaFX", 30));
         
         tableTasks.getSelectionModel().selectedItemProperty().addListener(
                 (ObservableValue<? extends Task> observable, Task oldValue, Task newValue) -> {
@@ -149,23 +140,7 @@ public class UIController implements Initializable {
             }
         };
         btnAdd.textProperty().bind(addButtonBinding);
-        btnAdd.disableProperty().bind(Bindings.greaterThan(3, currentTask.descriptionProperty().length()));
-        
-//        btnAdd.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-//            System.out.println("Filter: Mouse Clicked");
-//        });
-//        
-//        btnAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                System.out.println("Handler: Mouse Clicked");
-//            }
-//        });
-//
-//        btnAdd.setOnAction(event -> {
-//            System.out.println("Action occurred");
-//        });
-        
+        btnAdd.disableProperty().bind(Bindings.greaterThan(3, currentTask.descriptionProperty().length()));        
     }
     
     @FXML
@@ -199,8 +174,6 @@ public class UIController implements Initializable {
             setCurrentTask(null);
             tableTasks.getSelectionModel().clearSelection();
         }
-        
-        
     }
     
     private void setCurrentTask(Task selectedTask) {

@@ -49,9 +49,6 @@ public class DoItFX extends Application {
         primaryStage.setResizable(false);
         primaryStage.setAlwaysOnTop(false);
 
-//        primaryStage.setOnCloseRequest(event -> {
-//            onClose(event);
-//        });
         primaryStage.setOnCloseRequest(this::onClose); // Method references in Java8 using Lambda
         controller.setTasksMap(readTasksFile());
 
