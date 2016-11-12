@@ -67,9 +67,22 @@ public class UIController implements Initializable {
 
     private final  Task currentTask = new Task();
     private final  ObservableList<Task> tasks = FXCollections.observableArrayList();
-    private final  HashMap<Integer, Task> tasksMap = new HashMap<>();
+    private HashMap<Integer, Task> tasksMap = new HashMap<>();
     private int lastId = 0;
+
+    public HashMap<Integer, Task> getTasksMap() {
+        return tasksMap;
+    }
     
+    public void setTasksMap(HashMap<Integer, Task> map) {
+        if (!map.isEmpty()) {
+            tasksMap.clear();
+            tasks.clear();
+            tasksMap.putAll(map);
+            tasks.addAll(map.values());
+            lastId = tasksMap.keySet().stream().max(Integer::compare).get();
+        }
+    }
     
     /**
      * Initializes the controller class.
